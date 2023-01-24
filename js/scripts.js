@@ -37,7 +37,7 @@ function Destination(location, landmarks, timeOfYear) {
 }
 
 Destination.prototype.fullInfo = function () {
-  return this.location + "'s most famous landmark is " + this.landmarks + " and the best time to visit is " + this.timeOfYear;
+  return this.location
 };
 
 
@@ -59,8 +59,12 @@ function listPlaceDetail(placesToDisplay) {
   placesDiv.append(ul);
 }
 
-function displayPlacesDetails() {
-  console.log("The id of this <li> is " + event.target.id + ".");
+function displayPlacesDetails(event) {
+  const place = places.findPlace(event.target.id);
+  document.querySelector(".city-details").innerText = place.location;
+  document.querySelector(".landmark-details").innerText = place.landmarks;
+  document.querySelector(".best-season-details").innerText = place.timeOfYear;
+  document.querySelector("div#places-details").removeAttribute("class");
 }
 
 function handleFormSubmission(event) {
