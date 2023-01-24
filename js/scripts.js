@@ -1,27 +1,27 @@
 // Business Logic for AddressBook ---------
-function Places() {
+function Placeslist() {
   this.places = {};
   this.currentId = 0;
 }
 
-Places.prototype.addDestination = function (destination) {
+Placeslist.prototype.addDestination = function (destination) {
   destination.id = this.assignId();
   this.places[destination.id] = destination;
 };
 
-Places.prototype.assignId = function () {
+Placeslist.prototype.assignId = function () {
   this.currentId += 1;
   return this.currentId;
 };
 
-Places.prototype.findPlace = function (id) {
+Placeslist.prototype.findPlace = function (id) {
   if (this.places[id] !== undefined) {
     return this.places[id];
   }
   return false;
 };
 
-Places.prototype.deletePlace = function (id) {
+Placeslist.prototype.deletePlace = function (id) {
   if (this.places[id] === undefined) {
       return false;
   }
@@ -43,7 +43,7 @@ Destination.prototype.fullInfo = function () {
 
 // UI Logic
 
-let places = new Places();
+let place = new Placeslist();
 
 function listPlaceDetail(placesToDisplay) {
   let placesDiv = document.querySelector("div#places");
@@ -61,6 +61,7 @@ function listPlaceDetail(placesToDisplay) {
 
 function displayPlacesDetails(event) {
   const place = places.findPlace(event.target.id);
+  console.log(place + "- place")
   document.querySelector(".city-details").innerText = place.location;
   document.querySelector(".landmark-details").innerText = place.landmarks;
   document.querySelector(".best-season-details").innerText = place.timeOfYear;
@@ -73,7 +74,7 @@ function handleFormSubmission(event) {
   const inputLandmark = document.querySelector("input#landmark").value;
   const inputTime = document.querySelector("input#time").value;
   let newPlace = new Destination(inputCity, inputLandmark, inputTime);
-  places.addDestination(newPlace);
+  place.addDestination(newPlace);
   listPlaceDetail(places);
 }
 
